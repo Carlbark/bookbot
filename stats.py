@@ -27,3 +27,26 @@ def count_character_statistics(text):
         if char.isalpha():  # Count only alphabetic characters
             char_count[char] = char_count.get(char, 0) + 1
     return char_count
+
+def sort_dictionary_by_count(char_dict):
+    """
+    Sorts a character count dictionary by the count of characters.
+    
+    Args:
+        char_dict (dict): The dictionary to sort.
+        
+    Returns:
+        list: A sorted list of dictionaries, each containing two key-value pairs:
+        one for the character itself and one for its count.
+    """
+    def get_count(item):
+        # item is a tuple (char, count)
+        return item[1]
+
+    items = list(char_dict.items())  # Convert dictionary to list of key-value pairs
+    items.sort(key=get_count, reverse=True)
+
+    result = []
+    for char, count in items:
+        result.append({"char": char, "num": count})
+    return result
