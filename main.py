@@ -1,5 +1,5 @@
 from stats import count_words, count_character_statistics, sort_dictionary_by_count
-
+import sys
 
 def get_book_text(filepath):
     """
@@ -15,14 +15,20 @@ def get_book_text(filepath):
         with open(filepath) as file:
             return file.read()
     except FileNotFoundError:
-        return "File not found."
+        raise FileNotFoundError(f"File '{filepath}' not found.")
     except Exception as e:
-        return f"An error occurred: {e}"
-    
+        raise Exception(f"An error occurred: {e}")
 
 def main():
-    book_path = "books/frankenstein.txt"
-    book_content = get_book_text(book_path)
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    book_path = sys.argv[1]
+    try:
+        book_content = get_book_text(book_path)
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1)
     num_words = count_words(book_content)
     char_dict = count_character_statistics(book_content)
     sorted_list = sort_dictionary_by_count(char_dict)
