@@ -1,4 +1,4 @@
-from stats import count_words
+from stats import count_words, count_character_statistics
 
 
 def get_book_text(filepath):
@@ -20,12 +20,12 @@ def get_book_text(filepath):
         return f"An error occurred: {e}"
     
 
-
-
 def main():
     book_path = "books/frankenstein.txt"
     book_content = get_book_text(book_path)
     num_words = count_words(book_content)
+    char_dict = count_character_statistics(book_content)
     print(f"{num_words} words found in the document")
+    print(char_dict)
 
 main()
